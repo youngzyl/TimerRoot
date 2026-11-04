@@ -22,6 +22,7 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
+      - uses: android-actions/setup-android@v3
       - name: Install Android SDK packages
         run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
       - name: Fetch and verify the arm64 exploit binary
@@ -52,6 +53,7 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
+      - uses: android-actions/setup-android@v3
       - name: Install Android SDK packages
         run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
       - name: Validate version tag
