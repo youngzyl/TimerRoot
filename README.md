@@ -58,11 +58,23 @@ only when your kernel matches the build it was ported to.
 Open the project and build, or:
 
 ```bash
-./gradlew assembleDebug
+gradle assembleDebug
 ```
 
-The project needs the Android SDK with platform 36 and build-tools 36. The
+The project needs Gradle 8.9, JDK 17, and the Android SDK with platform 36 and build-tools 36. The
 Shizuku API is pulled from Maven (`dev.rikka.shizuku:api`).
+
+### CI and releases
+
+GitHub Actions builds a debug APK for pushes and pull requests. It fetches the
+arm64 exploit binary at upstream commit `ad1f4e7f0e38c9e7f8185a404094b9a62c0009f7`
+and verifies its SHA-256 before building. To publish a release, update
+`versionCode` and `versionName` in `app/build.gradle`, then push a matching tag
+(for example, `v0.32`). The workflow signs the release APK and publishes it with
+`SHA256SUMS.txt`. It requires the repository secrets `ANDROID_KEYSTORE_BASE64`,
+`ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, and `ANDROID_KEY_PASSWORD`.
+Keep a secure backup of the signing key: subsequent updates must use the same
+key to install over an existing release.
 
 ### Without Gradle
 

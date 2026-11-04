@@ -14,9 +14,27 @@ android {
         versionName '0.32'
     }
 
+    buildFeatures {
+        aidl true
+    }
+
+    signingConfigs {
+        release {
+            if (System.getenv('ANDROID_KEYSTORE_PATH')) {
+                storeFile file(System.getenv('ANDROID_KEYSTORE_PATH'))
+                storePassword System.getenv('ANDROID_KEYSTORE_PASSWORD')
+                keyAlias System.getenv('ANDROID_KEY_ALIAS')
+                keyPassword System.getenv('ANDROID_KEY_PASSWORD')
+            }
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
+            if (System.getenv('ANDROID_KEYSTORE_PATH')) {
+                signingConfig signingConfigs.release
+            }
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
                     'proguard-rules.pro'
         }

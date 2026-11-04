@@ -6,6 +6,7 @@ local.properties
 *.aab
 *.keystore
 *.jks
+.release-signing/
 
 # the exploit binary is fetched, not committed
 app/src/main/assets/timer
